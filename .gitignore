@@ -19,3 +19,5 @@ venv/
 
 # Training outputs
 runs/
+
+result_checkpoints/

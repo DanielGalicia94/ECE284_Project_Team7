@@ -6,12 +6,23 @@ from models.quant_layer import *
 
 
 
-cfg = {
+cfg_orig = {
     'VGG11': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'VGG13': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'VGG16_quant': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
     'VGG16': ['F', 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
     'VGG19': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512, 'M'],
+}
+
+
+
+
+cfg = {
+    'VGG16_quant': [64, 64, 'M',  
+                    128, 128, 'M',
+                    256, 256, 256, 'M',
+                    8, 8, 512, 'M',   #layer 27 squeezed to have 8 input channels and 8 output channels
+                    512, 512, 512, 'M'],
 }
 
 
@@ -38,6 +49,10 @@ class VGG_quant(nn.Module):
                            nn.BatchNorm2d(64),
                            nn.ReLU(inplace=True)]
                 in_channels = 64
+            elif len(layers) == 27: #squeeze layer 27
+                layers += [QuantConv2d(in_channels, x, kernel_size=3, padding=1),
+                           nn.ReLU(inplace=True)]
+                in_channels = x
             else:
                 layers += [QuantConv2d(in_channels, x, kernel_size=3, padding=1),
                            nn.BatchNorm2d(x),

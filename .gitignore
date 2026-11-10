@@ -1,0 +1,26 @@
+# Datasets
+data/
+
+# PyTorch checkpoints
+*.pth
+*.pth.tar
+*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+
+# Training outputs
+runs/
+
+result_checkpoints/
+results_tournament/
+results_MFHPO/
+part1_vgg16/sweep_1_results.csv

@@ -21,3 +21,6 @@ venv/
 runs/
 
 result_checkpoints/
+results_tournament/
+results_MFHPO/
+part1_vgg16/sweep_1_results.csv

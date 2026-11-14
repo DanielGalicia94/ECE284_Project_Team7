@@ -1,4 +1,4 @@
-#Check the codes in netlists<br>
+# Check the codes in netlists<br>
 The codes haven't been verified with a testbench yet. I asked Claude fable to do a preliminary check, and it said it looks fine.<br>
 `core.v`:Top module, ports are implemented the same as in the `core_tb.v`(provided in course github's `project` folder, not included here because it's used in part3)<br>
 `sram_32b_w2048`:Sram with 2048 registers of 32 bits , I used it for storing activation and weight inputs<br>

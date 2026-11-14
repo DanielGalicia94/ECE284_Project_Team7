@@ -1,0 +1,12 @@
+./netlists/core.v
+./netlists/corelet.v
+./netlists/sram_32b_w2048.v
+./netlists/sram_128b_w2048.v
+./netlists/l0.v
+./netlists/mac_array.v
+./netlists/mac_row.v
+./netlists/mac_tile.v
+./netlists/mac.v
+./netlists/ofifo.v
+./netlists/fifo_depth64.v
+./netlists/sfp.v

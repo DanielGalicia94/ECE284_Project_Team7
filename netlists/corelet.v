@@ -29,6 +29,8 @@ wire  fifo_rd;
 wire  fifo_valid;
 wire  acc;
 wire  relu;
+// adding first_act
+wire  first_acc;
 //wire  sfp_wr;
 //reg  [3:0] sfp_wr_add;
 
@@ -39,6 +41,7 @@ assign ofifo_valid = fifo_valid;
 assign acc = inst[33];
 assign fifo_rd = inst[6];
 assign relu = inst[5]; //since we are not using ififo, I borrow its control signal for sfp
+assign first_acc = inst[4];
 assign l0_rd = inst[3];
 assign l0_wr = inst[2];
 
@@ -81,6 +84,7 @@ sfp #(.col(col), .psum_bw(bw_psum))sfp_inst (
         .in(sfp_in),
         .out(sfp_out),
         .acc(acc),
+        .first_acc(first_acc),
         .relu(relu)
 );
 

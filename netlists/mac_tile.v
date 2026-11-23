@@ -19,10 +19,14 @@ reg [bw-1:0] b_q;
 reg [psum_bw-1:0] c_q;
 reg load_ready_q;
 reg [1:0] inst_q;
+reg [bw-1:0]      a_mul;     // multiplier's own activation input
+reg [psum_bw-1:0] c_mul;     // adder's own psum input
+reg               w_zero_q;  // guard bit
+reg               zero_q;
 
 wire [psum_bw-1:0] mac_out;
 
-assign out_s = mac_out;
+assign out_s = zero_q ? c_q : mac_out;
 assign out_e = a_q;
 assign inst_e = inst_q;
 
@@ -33,6 +37,10 @@ always @(posedge clk) begin
                 c_q <=0;
                 load_ready_q <= 1;
                 inst_q <= 0;
+                a_mul    <= 0;
+                c_mul    <= 0;
+                w_zero_q <= 1'b1;   // b_q resets to 0, so the flag starts at 1
+                zero_q   <= 1'b0;
         end else begin
                 inst_q[1] <= inst_w[1];
 
@@ -43,6 +51,7 @@ always @(posedge clk) begin
                 if (inst_w[0] && load_ready_q) begin
                         b_q <= in_w;
                         load_ready_q <= 1'b0;
+                        w_zero_q <= (in_w == 0);
                 end
 
                 if (inst_w[0] || inst_w[1]) begin 
@@ -50,13 +59,20 @@ always @(posedge clk) begin
                 end
 
                 c_q <= in_n;
+                if (inst_w[1]) begin
+                        zero_q <= (in_w == 0) | w_zero_q;
+                        if ((in_w != 0) & ~w_zero_q) begin
+                                a_mul <= in_w;
+                                c_mul <= in_n;
+                        end
+                end
         end
 end
 
 mac #(.bw(bw), .psum_bw(psum_bw)) mac_instance (
-        .a(a_q), 
+        .a(a_mul), 
         .b(b_q),
-        .c(c_q),
+        .c(c_mul),
 	.out(mac_out)
 ); 
 

@@ -1,0 +1,21 @@
+VCD info: dumpfile core_tb.vcd opened for output.
+############ Verification Start during accumulation #############
+ 1-th output featuremap Data matched! :D
+ 2-th output featuremap Data matched! :D
+ 3-th output featuremap Data matched! :D
+ 4-th output featuremap Data matched! :D
+ 5-th output featuremap Data matched! :D
+ 6-th output featuremap Data matched! :D
+ 7-th output featuremap Data matched! :D
+ 8-th output featuremap Data matched! :D
+ 9-th output featuremap Data matched! :D
+10-th output featuremap Data matched! :D
+11-th output featuremap Data matched! :D
+12-th output featuremap Data matched! :D
+13-th output featuremap Data matched! :D
+14-th output featuremap Data matched! :D
+15-th output featuremap Data matched! :D
+16-th output featuremap Data matched! :D
+############ No error detected ##############
+########### Project Completed !! ############
+/mnt/c/Users/derri/ECE284_Project_Team7/part3/core_tb.v:363: $finish called at 1940000 (1ps)

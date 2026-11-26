@@ -1,0 +1,38 @@
+layout=chw  seed=284  frames: X0[-96..96], X1[-102..103], X2[-100..100], X3[-100..101]
+W (oc x ic):
+[[-5  2 -2 -8  6  1 -4  6]
+ [ 0 -3  4  1 -7  2  4  0]
+ [ 5  7 -3 -4  3  5 -1  1]
+ [-7  5  4  6 -4 -1 -4 -4]
+ [ 6 -3 -2  1  0  5  2 -5]
+ [ 3 -4 -8  6  4 -5 -4 -6]
+ [-1 -1  5 -6 -2  3 -7  5]
+ [ 5  6  1  1 -5  4 -1 -6]]
+X0 split: hi in [-6, 6] (signed), lo in [0, 15] (unsigned); 16*hi+lo == X0: OK
+Y0 == W x X0 exactly: OK   |Y0| max = 2390
+
+frame  k  max|dX|  saturated  max|err|      MSE   SQNR(dB)   |Yi_hw| max
+  X1   0       7          0         0      0.000        inf      2356
+  X2   0       7          0         0      0.000        inf      2416
+  X3   0       7          0         0      0.000        inf      2385
+
+k sweep (all frames same k):  k  frame  saturated  max|err|  SQNR(dB)
+                              0   X1           0         0       inf
+                              0   X2           0         0       inf
+                              0   X3           0         0       inf
+                              1   X1           0        27     39.85
+                              1   X2           0        23     40.17
+                              1   X3           0        23     40.19
+                              2   X1           0        62     34.39
+                              2   X2           0        48     34.49
+                              2   X3           0        48     34.50
+                              3   X1           0        84     28.62
+                              3   X2           0        91     28.57
+                              3   X3           0        96     28.66
+                              4   X1           0       127     25.91
+                              4   X2           0       147     25.81
+                              4   X3           0       125     25.86
+
+max |value| over all psums / Y: 2416  -> fits 16-bit signed: True
+passes: conventional = 4 frames x 2 nibbles = 8;  differential = 2 + 1 + 1 + 1 = 5;  saving = 37.5%, speedup = 1.6x
+NOTE: 256 pixels per pass > L0/OFIFO depth 64 -> testbench should run each pass as 4 tiles of 64 pixels.

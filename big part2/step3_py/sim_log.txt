@@ -1,0 +1,14 @@
+Host: all dX fit in signed 4 bits
+############ Verification Start #############
+Y0: all 256 pixels matched
+Y1: all 256 pixels matched
+Y2: all 256 pixels matched
+Y3: all 256 pixels matched
+---------------- pass / cycle report ----------------
+array passes run (differential): 5   (conventional would need 8)
+execute cycles: 1280   array-phase cycles: 4280   (856 per pass)
+conventional estimate: 6848 array-phase cycles (8 passes)
+SFU-phase cycles: 5120
+############ No error detected ##############
+########### Part2 Completed !! ############
+/mnt/project-files/part2_diff/tb_v2/core_tb_p2.v:362: $finish called at 10752500 (1ps)
